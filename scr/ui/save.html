@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q Bot UI</title>
+  <link rel="icon" type="image/x-icon" href="./assets/images/logo-nobg.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="html.js" defer></script>
+  <script src="number-input.js" defer></script>
+</head>
+<body>
+  <h1 title="by quangei">Q Bot Ui</h1>
+  <nav class="navbar">
+    <ul>
+      <li><button onclick="showSection('general')" class="nav-button">General</button></li>
+      <li><button onclick="showSection('accounts')" class="nav-button">Accounts</button></li>
+      <li><button onclick="showSection('settings')" class="nav-button">Settings</button></li>
+      <li><button onclick="showSection('botting')" class="nav-button">Botting</button></li>
+      <li><button onclick="showSection('plugins')" class="nav-button">Plugins</button></li>
+      <li><button onclick="showSection('macros')" class="nav-button">Macros</button></li>
+      <li><button onclick="showSection('about')" class="nav-button">About</button></li>
+    </ul>
+  </nav>
+
+  <section id="general" class="page-section">
+    <div class="general-grid">
+      <div class="item-1">
+        <div class="server-address">
+          <label for="serveraddress">Server Address:</label>
+          <input type="text" id="serveraddress" list="serverlist" autocomplete="off" />
+          <datalist id="serverlist">
+            <option value="server1.example.com">
+            <option value="server2.example.com">
+            <option value="server3.example.com">
+          </datalist>
+          <button onclick="applyserver()">Apply</button>
+        </div>
+        <div class="protocol-and-type">
+          <div class="protocol-version">
+            <label for="protocol">Protocol Version:</label>
+            <select id="protocol" class="select">
+              <option value="">Version Auto</option>
+              <option value="1.20">1.20</option>
+              <option value="1.19.4">1.19.4</option>
+              <option value="1.19.3">1.19.3</option>
+              <option value="1.19.2">1.19.2</option>
+              <option value="1.19.1">1.19.1</option>
+              <option value="1.19">1.19</option>
+              <option value="1.18.2">1.18.2</option>
+              <option value="1.18.1">1.18.1</option>
+              <option value="1.18">1.18</option>
+              <option value="1.17.1">1.17.1</option>
+              <option value="1.17">1.17</option>
+              <option value="1.16.5">1.16.5</option>
+              <option value="1.16.4">1.16.4</option>
+              <option value="1.16.3">1.16.3</option>
+              <option value="1.16.2">1.16.2</option>
+              <option value="1.16.1">1.16.1</option>
+              <option value="1.16">1.16</option>
+              <option value="1.15.2">1.15.2</option>
+              <option value="1.15.1">1.15.1</option>
+              <option value="1.15">1.15</option>
+              <option value="1.14.4">1.14.4</option>
+              <option value="1.14.3">1.14.3</option>
+              <option value="1.14.1">1.14.1</option>
+              <option value="1.14">1.14</option>
+              <option value="1.13.2">1.13.2</option>
+              <option value="1.13.1">1.13.1</option>
+              <option value="1.13">1.13</option>
+              <option value="1.12.2">1.12.2</option>
+              <option value="1.12.1">1.12.1</option>
+              <option value="1.12">1.12</option>
+              <option value="1.11.2">1.11.2</option>
+              <option value="1.11">1.11</option>
+              <option value="1.10.2">1.10.2</option>
+              <option value="1.10.1">1.10.1</option>
+              <option value="1.10">1.10</option>
+              <option value="1.9">1.9</option>
+              <option value="1.8">1.8.x</option>
+            </select>
+          </div>
+          <div class="type">
+            <input type="checkbox" name="" id="accounts-type">
+            <label for="accounts-type">Premium</label>
+          </div>
+        </div>
+      </div>
+      
+      <div class="item-2">
+        <label for="account-path">Account path:</label>
+        <div class="account-input">
+          <span class="account-path">No account chosen</span>
+          <button class="accounts-set" onclick="choosefile()">Set</button>
+          <input type="file" id="account-input" onchange="updatefilepath()" />
+        </div>
+        <input type="radio" name="option" value="liner" id="liner">
+        <label for="liner">Liner</label>
+  
+        <input type="radio" name="option" value="random" id="random">
+        <label for="random">Random</label>
+      </div>
+
+      <div class="item-3">
+        <div class="labels">
+          <label for="max-accounts-input">Max accounts:</label>
+          <label for="throttling-delay-input">Throttling delay:</label>
+        </div>
+        <div class="inputs">
+          <div class="input-container">
+            <div class="input-container-inner">
+              <input type="number" class="number-input" id="max-accounts-input" placeholder="20"/>
+              <div class="buttons">
+                <button class="increase-max-accounts">+</button>
+                <button class="decrease-max-accounts">-</button>
+              </div>
+            </div>
+          </div>
+          <div class="input-container">
+            <div class="input-container-inner">
+              <input type="number" class="number-input" id="throttling-delay-input" placeholder="20"/>
+              <div class="buttons">
+                <button class="increase-throttling-delay">+</button>
+                <button class="decrease-throttling-delay">-</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+            
+      <div class="item-4">
+        <input type="checkbox" name="connect-message" id="connect-message">
+        <label for="connect-message">Connect message</label>
+      </div>
+  
+      <div class="item-5">
+        <div id="connect-message-container">
+          <input type="text" class="inputtext" id="input-text-1" placeholder="/register">
+          <input type="text" class="inputtext" id="input-text-2" placeholder="inputtext_1">
+        </div>
+        <button id="increase-connect-message" onclick="addinput()">+</button>
+        <button id="decrease-connect-message" onclick="removeinput()">-</button>
+      </div>
+  
+      <div class="item-6">
+        <button id="start-button" onclick="toggleButton()">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Start
+        </button>
+        <button onclick="resetButton()">Stop</button>
+        <p>Bot connected</p>
+        <p>Latency to server</p>
+        <input type="checkbox" name="check-accounts" id="check-accounts">
+        <label for="check-accounts">Check accounts</label>
+      </div>
+    </div>
+  </section>  
+
+  <section id="accounts" class="page-section">
+    <div>hello</div>
+  
+  </section>
+
+  <section id="settings" class="page-section">
+
+    <h2 class="top-left-h2" >Simple settings</h2>
+      <div class="left">
+        <div class="connecting">
+          <h3>Connecting</h3>
+            <input type="checkbox" name="vpn" id="vpn">
+            <label for="vpn">Vpn mode</label>
+            <input type="checkbox" name="reconnect" id="reconnect">
+            <label for="reconnect">Reconnect</label>
+
+            <div class="input-row">
+              <label for="number-input">Max retries on intial join:</label>
+              <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue (this)" oninput="checkValue(this)"/>
+              <button class="increase-button">+</button>
+              <button class="decrease-button">-</button>
+            </div>
+            <div class="input-row">
+              <label for="number-input">Max rejoin on disconnect:</label>
+              <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue (this)" oninput="checkValue(this)"/>
+              <button class="increase-button">+</button>
+              <button class="decrease-button">-</button>
+            </div>
+        </div>
+
+        <div class="in-game">
+          <h3>In-game</h3>
+            <input type="checkbox" name="use-sprint" id="use-sprint">
+            <label for="use-sprint">Use sprint</label>
+            <div class="input-row">
+              <label for="number-input">Max fall:</label>
+              <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue (this)" oninput="checkValue(this)"/>
+              <button class="increase-button">+</button>
+              <button class="decrease-button">-</button>
+            </div>
+        </div>
+      </div>
+
+      <div class="middle">
+        <div class="plugins">
+          <h3>Plugins</h3>
+            <input type="checkbox" name="all-permissions" id="all-permissions">
+            <label for="all-permissions">All permissions</label>
+        </div>
+      
+        <div class="proxies">
+        <h3>Proxies</h3>
+          <input type="checkbox" name="use-proxies" id="use-proxies">
+          <label for="use-proxies">Use proxies</label>
+          <div class="input-row">
+            <label for="number-input">Max proxy retries:</label>
+            <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue(this)" oninput="checkValue(this)"/>
+            <button class="increase-button">+</button>
+            <button class="decrease-button">-</button>
+          </div>
+          <div class="input-row">
+            <label for="number-input">Max same proxy:</label>
+            <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue(this)" oninput="checkValue(this)"/>
+            <button class="increase-button">+</button>
+            <button class="decrease-button">-</button>
+          </div>
+          <div class="input-row">
+            <label for="number-input">Login threads:</label>
+            <input type="text" class="number-input" value="99" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValue(this)" oninput="checkValue(this)"/>
+            <button class="increase-button">+</button>
+            <button class="decrease-button">-</button>
+          </div>
+          <label for="proxy-list">Proxy list:</label>
+          <input type="file" name="proxy-list" id="proxy-list">
+
+          <label for="proxy-type">Proxy type</label>
+          <select name="proxy-type" id="proxy-type">
+            <option value="sock4">Sock4</option>
+            <option value="sock5">Sock5</option>
+          </select>
+        </div>
+      </div>
+
+    <h2 class="top-right-h2">Advanced settings</h2>
+      <div class="right">
+        <div class="loading">
+          <h3>Loading</h3>
+          <h4>Future</h4>
+          <input type="checkbox" name="load-world" id="load-world">
+          <label for="load-world">Load world</label>
+          <p>Impact perform greatly</p>
+          <p>Impact ncp + movements pathfinding</p>
+          <input type="checkbox" name="shared-world" id="shared-world">
+          <label for="shared-world">Shared world</label>
+        </div>
+      </div>
+  </section>
+
+  <section id="botting" class="page-section">
+    <!-- <div style="width: 200px; height: 100px; border: 1px solid #ccc;"> Nội dung box nhỏ </div> -->
+    <span>Bots list</span>
+      <ul id="botlist" class="flex-colum" style="height: 11pc; width:15pc; margin-top: 0;"></ul>
+      <div style="display: flex; position: relative; top: -12px; width:15pc;">
+        <label class="container">
+          <input id="toggleautoselect" type="checkbox" checked>
+          <span class="checkmark"></span>
+        </label>
+        <button style="flex: 1;" class="button" onclick="selectAll()">All</button>
+        <button style="flex: 1;" class="button" onclick="selectRemove()">None</button>
+      </div>
+      <ul id="ul-options" class="flex-colum input-group selectors" style="height: 14pc; width:15pc; position: relative; top: -20px; opacity: 1;">
+        <button class="button button-selected" data-target=".controls">Controls</button>
+        <button class="button" data-target=".chat">Chat</button>
+        <button class="button" data-target=".spam">Spam</button>
+        <button class="button" data-target=".setHotbatSlot">Set hotbar slot</button>
+        <button class="button" data-target=".clickWindow">Click window</button>
+        <button class="button" data-target=".moveDirection">Control move</button>
+        <button class="button" data-target=".look">Look</button>
+        <button class="button" data-target=".drop">Drop</button>
+        <button class="button" data-target=".antiafk">Anti-AFK</button>
+        <button class="button" data-target=".killaura">Killaura</button>
+      </ul>
+  </section>
+
+  <section id="plugins" class="page-section">
+    <div>
+      
+    </div>
+  </section>
+
+  <section id="macros" class="page-section">
+    <h2>Macros</h2>
+    <p>Future</p>
+  </section>
+
+  <section id="about" class="page-section">
+    <h2>About Project</h2>
+    <h2>Contact</h2>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <ul class="contact">
+      <li style="--i:#6edbff;--j:#2F80ED;">
+        <span class="icon"><i class="fa fa-facebook"></i></span>
+        <span class="titulo" onclick="openurl('https://www.facebook.com/profile.php?id=100085603176507')">facebook</span>
+        </script>
+      </li>  
+      <li style="--i:#ea51ff;--j:#a955ff;">
+        <span class="icon"><i class="fa fa-github"></i></span>
+        <span class="titulo" onclick="openurl('https://github.com/quangei')">github</span>
+      </li>
+      <li style="--i:#ff7676;--j:#ff1313;">
+        <span class="icon"><i class="fa fa-youtube"></i></span>
+        <span class="titulo" onclick="openurl('https://www.youtube.com/channel/UC00vsYOpnNNvjNvJT3siSvA')">youtube</span>
+      </li>
+      <li style="--i:#80FF72;--j:#5ec3d4;">
+        <span class="icon"><i class="fa fa-phone"></i></span>
+        <span class="titulo" onclick="Clipboard">0355278107</span>
+      </li>
+      <!-- <li style="--i:#FFA9C6;--j:#F434E2;">
+        <span class="icon"><i class="fa fa-phone"></i></span>
+        <span class="titulo" onclick="openurl('https://github.com/quangei')">github</span>
+      </li> -->
+    </ul>
+  </section>
+</body>
+</html>

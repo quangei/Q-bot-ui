@@ -1,0 +1,713 @@
+body {
+  background: black;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  /* background: #1ee885; background-image: radial-gradient(at 71.0% 85.0%, hsl(145, 65%, 69%) 0px, transparent 50%),radial-gradient(at 75.0% 75.0%, hsl(240, 84%, 56%) 0px, transparent 50%),radial-gradient(at 14.0% 28.0%, hsl(77, 50%, 48%) 0px, transparent 50%),radial-gradient(at 13.0% 55.0%, hsl(147, 96%, 70%) 0px, transparent 50%),radial-gradient(at 49.0% 53.0%, hsl(207, 63%, 60%) 0px, transparent 50%),radial-gradient(at 3.0% 15.0%, hsl(339, 43%, 62%) 0px, transparent 50%) */
+}
+
+h1 {
+
+  color: white;
+
+  font-size: 36px;
+  
+  margin-left: 15px;
+  margin-top: 5px;
+  margin-bottom: -5px;
+
+  text-shadow:
+    0 0 3px #cfcfcf,
+    0 0 5px #ffffff,
+    0 0 7px #ffffff,
+    0 0 10px #ffffff,
+    0 0 20px #ffffff;
+
+  animation: flick 5s infinite;
+}
+
+@keyframes flick {
+  0% {
+    text-shadow: 
+      0 0 3px #cfcfcf,
+      0 0 5px #ffffff,
+      0 0 7px #ffffff,
+      0 0 10px #ffffff,
+      0 0 20px #ffffff;
+  }
+
+  50% {
+     text-shadow: none;
+  }
+
+  100% {
+    text-shadow:
+      0 0 3px #cfcfcf,
+      0 0 5px #ffffff,
+      0 0 7px #ffffff,  
+      0 0 10px #ffffff,
+      0 0 20px #ffffff;
+  }
+}
+
+h2 {
+  margin-top: 0px;
+}
+
+.navbar {
+  background-color: black;
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  margin-left: 10px;
+}
+
+.navbar li {
+  margin-right: 0px;
+}
+.navbar button.active-button {
+  border-bottom: 4px solid orange;
+}
+
+.navbar button.active-button:hover {
+  border-bottom: 4px solid orange;
+}
+
+.navbar a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px;
+}
+
+.navbar a:hover {
+  background-color: #555;
+  border-bottom: 4px solid orange;
+}
+
+.navbar button {
+  color: #505352;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 10px;
+  width: 100px;
+  text-align: start;
+}
+
+
+.navbar button:hover {
+  border-bottom: 4px solid rgb(80, 80, 80);
+}
+
+section.page-section {
+  height: 420px;
+  background-color: #F6F4F2;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 0 10px 10px;
+}
+
+section.page-section {
+  display: none;
+}
+section.page-section.active {
+  display: block;
+}
+
+/* general.css */
+
+#general .general-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-template-rows: repeat(4, 100px);
+}
+
+#general .general-grid .general-1 {
+  padding: 10px;
+  grid-column: 1 / 5;
+  grid-row: 1 / 1;
+  border-bottom: 1px solid orange;
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  grid-template-columns: auto;
+  align-items: center;
+}
+
+#general .general-grid .general-1 .server-address {
+  display: flex;
+  align-items: center;
+  width: 620px;
+}
+
+#general .general-grid .general-1 .server-address label {
+  flex: 0 0 120px;
+}
+
+#general .general-grid .general-1 .server-address input {
+  flex: 1;
+}
+
+#general .general-grid .general-1 .protocol-and-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#general .general-grid .general-1 .type {
+  margin-left: auto;
+}
+
+#general .general-grid .general-2 {
+  padding: 10px;
+  grid-column: 1 / 5;
+  grid-row: 2 / 2;
+  border-bottom: 1px solid orange;
+  display: flex;
+  flex-direction: column;
+}
+
+#general .general-grid .general-2 .account-input {
+  display: flex;
+  align-items: center;
+}
+
+#general .general-grid .general-2 .account-input p {
+  margin: 0;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+#general .general-grid .general-2 .account-input input[type="file"] {
+  display: none;
+}
+
+#general .general-grid .general-2 .account-input span.account-path {
+  border-bottom: 2px solid orange;
+  margin-right: 10px;
+  width: 600px;
+  height: 30px;
+  padding: 5px;
+  color: #B9B9B7;
+}
+
+#general .general-grid .general-2 .account-input label {
+  background-color: #DDDDDD;
+  color: black;
+  border: 2px solid #9A9A9A;
+  padding: 2px 25px;
+  cursor: pointer;
+}
+
+#general .general-grid .general-2 .account-input label:hover {
+  background-color: #9c9c9c;
+  color: black;
+  border: 2px solid #6e6e6e;
+  cursor: pointer;
+}
+
+#general .general-grid .general-2 .radio-container {
+  margin-top: 10px;
+  margin-left: 100px;
+}
+
+
+#general .general-grid .general-3 {
+  padding: 10px;
+  grid-column: 1 / 1;
+  grid-row: 3 / 3;
+  border-bottom: 1px solid orange;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#general .general-3 .labels {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#general .general-3 .labels label {
+  margin-bottom: 10px;
+}
+
+#general .general-3 .inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+#general .general-3 .input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#general .general-3 .input-container-inner {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid orange;
+  padding-bottom: 5px;
+}
+
+#general .general-3 .inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+#general .general-3 .input-container-inner {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid orange;
+  padding-bottom: 5px;
+}
+
+#general .general-3 .labels label {
+  margin-bottom: 5px;
+}
+
+#general .general-3 .input-container .number-input {
+  background: none;
+  outline: none;
+  border: none;
+  margin-right: 5px; /* Tạo khoảng cách giữa input và label */
+  flex: 1;
+}
+
+#general #max-accounts-input,
+#general #throttling-delay-input {
+  width: 100px; /* Điều chỉnh độ dài input */
+}
+
+#general .general-3 .buttons {
+  display: flex;
+  align-items: center;
+}
+
+#general .general-3 .buttons button {
+  margin-left: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+#general input::-webkit-outer-spin-button,
+#general input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#general .general-grid .general-4 {
+  padding: 10px 2px;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+  border-left: 1px solid orange;
+  border-right: 1px solid orange;
+  border-bottom: 1px solid orange;
+}
+
+#general .general-grid .general-5 {
+  padding: 10px;
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+  border-bottom: 1px solid orange;
+}
+
+
+#general .general-grid .general-5 #connect-message-container {
+  width: 100%; 
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+#general .general-grid .general-5 #connect-message-container .inputtext {
+  border: none;
+  outline: none;
+  font-size: 20px;
+  border-bottom: 2px solid orange;
+  padding-bottom: -10px;
+  background: none;
+}
+
+#general .general-grid .general-5 button {
+  border: none;
+  outline: none;
+  background: none;
+  color: #BFBFBF;
+  font-size: 20px;
+}
+
+#general .general-grid .general-5 button:hover {
+  border: none;
+  outline: none;
+  background: none;
+  color: black;
+  font-size: 20px;
+}
+
+#general .general-grid .general-6 {
+  padding: 10px;
+  grid-column: 1 / 5;
+  grid-row: 4 / 4;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+#general .general-grid .general-6 .toggle-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#general .general-grid .general-6 .bot-info {
+  padding: 2px 15px;
+  font-size: 10px;
+  color: #B3B1B3;
+}
+
+#general .general-grid .general-6 .join-option {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+#general .general-grid .general-6 .checkbox-group {
+  display: flex;
+  align-items: center;
+}
+
+#general .general-grid .general-6 .checkbox-group label {
+  margin-left: 8px;
+}
+
+#general .general-grid .general-6 input[type="checkbox"] {
+  margin-bottom: 5px;
+}
+
+#general .general-6 .toggle-button #start-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #FC7003;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  background: none;
+  border: none;
+  margin-top: 15px;
+}
+
+#general .general-6 .toggle-button #stop-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #D7D4D7;
+  font-size: 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: .5s;
+  letter-spacing: 4px;
+  background: none;
+  border: none;
+  margin-top: 15px;
+}
+
+#general .general-6 .toggle-button #start-button:hover {
+  background: #FC7003;
+  color: #fff;
+  box-shadow: 0 0 5px #FC7003,
+              0 0 25px #FC7003,
+              0 0 50px #FC7003,
+              0 0 100px #FC7003;
+}
+
+#general .general-6 .toggle-button #stop-button:hover {
+  background: #D7D4D7;
+  color: #fff;
+  box-shadow: 0 0 5px #D7D4D7,
+              0 0 25px #D7D4D7,
+              0 0 50px #D7D4D7,
+              0 0 100px #D7D4D7;
+}
+
+#general .general-6 .toggle-button #start-button span {
+  position: absolute;
+  display: block;
+}
+
+#general .general-6 .toggle-button #stop-button span {
+  position: absolute;
+  display: block;
+}
+
+#general .general-6 .toggle-button #start-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #FC7003);
+  animation: btn-anim1 1s linear infinite;
+}
+
+#general .general-6 .toggle-button #stop-button span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #D7D4D7);
+  animation: btn-anim1 1s linear infinite;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
+  }
+  50%,100% {
+    left: 100%;
+  }
+}
+
+#general .general-6 .toggle-button #start-button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #FC7003);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+#general .general-6 .toggle-button #stop-button span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #D7D4D7);
+  animation: btn-anim2 1s linear infinite;
+  animation-delay: .25s
+}
+
+@keyframes btn-anim2 {
+  0% {
+    top: -100%;
+  }
+  50%,100% {
+    top: 100%;
+  }
+}
+
+#general .general-6 .toggle-button #start-button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #FC7003);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+#general .general-6 .toggle-button #stop-button span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #D7D4D7);
+  animation: btn-anim3 1s linear infinite;
+  animation-delay: .5s
+}
+
+@keyframes btn-anim3 {
+  0% {
+    right: -100%;
+  }
+  50%,100% {
+    right: 100%;
+  }
+}
+
+#general .general-6 .toggle-button #start-button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #FC7003);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+#general .general-6 .toggle-button #stop-button span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #D7D4D7);
+  animation: btn-anim4 1s linear infinite;
+  animation-delay: .75s
+}
+
+@keyframes btn-anim4 {
+  0% {
+    bottom: -100%;
+  }
+  50%,100% {
+    bottom: 100%;
+  }
+}
+
+/* settings.css */
+
+#settings .settings-grid {
+  font-family: Arial, sans-serif;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 50px 75px repeat(2, 1fr) 90px;
+  font-size: 15px;
+}
+
+#settings .settings-grid .top-left-h2 {
+  grid-area: 1 / 1 / 2 / 2;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: orange;
+}
+
+#settings .top-right-h2 {
+  grid-area: 1 / 3 / 2 / 4;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  color: orange;
+}
+
+#settings h3 {
+  margin-top: -15px;
+  color: orange;
+  background-color: #F6F4F2;
+  padding: 0px 5px;
+  border: 1px solid red;
+  width: fit-content;
+}
+
+#settings .plugins {
+  border: 1px solid #E2DFE1;
+  grid-area: 2 / 2 / 3 / 3;
+}
+
+#settings .proxies {
+  border: 1px solid #E2DFE1;
+  grid-area: 3 / 2 / 6 / 3;
+}
+
+#settings .connecting {
+  border: 1px solid #E2DFE1;
+  grid-area: 2 / 1 / 5 / 2;
+}
+
+#settings .in-game {
+  border: 1px solid #E2DFE1;
+  grid-area: 5 / 1 / 6 / 2;
+}
+
+#settings .loading {
+  border: 1px solid #E2DFE1;
+  grid-area: 2 / 3 / 6 / 4;
+}
+
+
+/* about.css */
+
+#about ul.contact {
+  position: relative;
+  display: flex;
+  gap: 25px
+}
+#about ul.contact li {
+  position: relative;
+  list-style: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transition: 0.5s;
+}
+#about ul.contact li:hover {
+  width: 180px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
+}
+#about ul.contact li::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  opacity: 0;
+  transition: 0.5s;
+ 
+}
+
+#about ul.contact li:hover::before {
+  opacity: 1;
+}
+#about ul.contact li::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  height: 100%;
+  border-radius: 60px;
+  background: linear-gradient(45deg, var(--i), var(--j));
+  opacity: 0;
+  transition: 0.5s;
+  z-index: -1;
+  filter: blur(15px);
+}
+#about ul.contact li:hover::after {
+  opacity: 0.5;
+}
+#about ul.contact li i {
+  color: #777;
+  font-size:  1.75em !important;
+  transition: 0.5s;
+  transition-delay: 0.25s;
+}
+#about ul.contact li:hover i {
+  transform: scale(0);
+  font-size: 1.75em;
+  transition-delay: 0.25s;
+}
+#about ul.contact li span {
+  position: absolute;
+}
+#about ul.contact li .titulo {
+  color: #fff;
+  font-size: 1.1em !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transform: scale(0);
+  transition: 0.5s;
+  transition-delay: 0s;
+  text-underline-position: unset;
+  text-decoration: none;
+}
+#about ul.contact li:hover .titulo {
+  transform: scale(1);
+  transition-delay: 0.25s;
+  text-decoration: none;
+}
