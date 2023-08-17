@@ -6,7 +6,6 @@
   <title>Q Bot UI</title>
   <link rel="icon" type="image/x-icon" href="./assets/images/logo-nobg.png">
   <link rel="stylesheet" href="style.css">
-  <script src="html.js" defer></script>
 </head>
 <body>
   <h1 title="by quangei">Q Bot Ui</h1>
@@ -33,7 +32,7 @@
             <option value="server2.example.com">
             <option value="server3.example.com">
           </datalist>
-          <button onclick="applyserver()">Apply</button>
+          <button id="apply-server">Apply</button>
         </div>
         <div class="protocol-and-type">
           <div class="protocol-version">
@@ -80,8 +79,14 @@
             </select>
           </div>
           <div class="type">
-            <input type="checkbox" name="" id="accounts-type">
-            <label for="accounts-type">Premium</label>
+            <input type="radio" class="accounts-type" name="accounts-type" id="account-type-cracked" checked>
+            <label for="accounts-type">Cracked</label>
+
+            <input type="radio" class="accounts-type" name="accounts-type" id="account-type-mojang">
+            <label for="accounts-type" title="You must set account path for this choose">Mojang</label>
+
+            <input type="radio" class="accounts-type" name="accounts-type" id="account-type-microsoft">
+            <label for="accounts-type" title="You must set account path for this choose">Microsoft</label>
           </div>
         </div>
       </div>
@@ -89,17 +94,28 @@
       <div class="general-2">
         <div class="account-input">
           <p>Account path:</p>
-          <input type="file" id="account-input" onchange="updatefilepath()" />
+          <input type="file" id="account-input" accept=".txt" onchange="updatefilepath()" />
           <span class="account-path">No file choose</span>
           <label for="account-input">Set</label>
         </div>
-      
-        <div class="radio-container">
-          <input type="radio" name="option" value="liner" id="liner">
-          <label for="liner">Liner</label>
-      
-          <input type="radio" name="option" value="random" id="random">
-          <label for="random">Random</label>
+
+        <div class="account-input2">
+          <div class="account-text-input">
+            <label for="bot-username">Bot username:</label>
+            <input type="text" name="bot-username" id="bot-username">
+          </div>
+          <div class="crack-type">
+            <input type="radio" class="crack-type-select" name="option" id="crack-type-liner" checked>
+            <label for="crack-type-liner">Liner</label>
+
+            <input type="radio" class="crack-type-select" name="option" id="crack-type-random">
+            <label for="crack-type-random">Random</label>
+          </div>
+          <div class="random-length">
+            <label for="random-length-input">Random length input:</label>
+            <input type="range" name="random-length-input" id="random-length-input" value="4" max="20" min="0">
+            <div id="value-display">4</div>
+          </div>
         </div>
       </div>
 
@@ -111,19 +127,19 @@
         <div class="inputs">
           <div class="input-container">
             <div class="input-container-inner">
-              <input type="number" class="number-input" id="max-accounts-input" placeholder="20"/>
+              <input type="number" class="number-input" id="max-accounts-input" placeholder="20" min="0"/>
               <div class="buttons">
-                <button class="increase-max-accounts">+</button>
-                <button class="decrease-max-accounts">-</button>
+                <button class="increase-max-accounts-input">+</button>
+                <button class="decrease-max-accounts-input">-</button>
               </div>
             </div>
           </div>
           <div class="input-container">
             <div class="input-container-inner">
-              <input type="number" class="number-input" id="throttling-delay-input" placeholder="20"/>
+              <input type="number" class="number-input" id="throttling-delay-input" placeholder="20" min="0"/>
               <div class="buttons">
-                <button class="increase-throttling-delay">+</button>
-                <button class="decrease-throttling-delay">-</button>
+                <button class="increase-throttling-delay-input">+</button>
+                <button class="decrease-throttling-delay-input">-</button>
               </div>
             </div>
           </div>
@@ -137,8 +153,8 @@
   
       <div class="general-5">
         <div id="connect-message-container">
-          <input type="text" class="inputtext" id="input-text-1" placeholder="/register">
-          <input type="text" class="inputtext" id="input-text-2" placeholder="inputtext_1">
+          <input type="text" class="connect-msg-input" id="connect-message-1" placeholder="/register">
+          <input type="text" class="connect-msg-input" id="connect-message-2" placeholder="Connect message 2">
         </div>
         <button id="increase-connect-message" onclick="addinput()">+</button>
         <button id="decrease-connect-message" onclick="removeinput()">-</button>
@@ -146,28 +162,29 @@
   
       <div class="general-6">
         <div class="toggle-button">
-          <button id="start-button" onclick="toggleButton()">
+          <button id="start-button">
             <span></span>
             <span></span>
             <span></span>
             <span></span>
             Start
           </button>
-          <button id="stop-button" onclick="resetButton()">
+          <button id="stop-button">
             <span></span>
             <span></span>
             <span></span>
-            <span></span>Stop
+            <span></span>
+            Stop
           </button>
         </div>
         <div class="bot-info">
-          <p>Bot connected</p>
-          <p>Latency to server</p>
+          <p>Bot connected: <span id="bot-connected">0</span></p>
+          <p>Latency to server: <span id="latency">null</span></p>
         </div>
         <div class="join-option">
           <div class="checkbox-group">
             <input type="checkbox" name="check-accounts" id="check-accounts">
-            <label for="check-accounts">Check accounts</label>
+            <label for="check-accounts" title="Account checking makes the blocks for invalid logins last less, however may result in more frequent ip blocks. Generally use this, if you haven't checked your alts list in a while.">Check accounts</label>
           </div>
           <div class="checkbox-group">
             <input type="checkbox" name="detect-temp-block" id="detect-temp-block">
@@ -188,72 +205,102 @@
       <h2 class="top-left-h2" >Simple settings</h2>
         <div class="connecting">
         <h3>Connecting</h3>
-          <input type="checkbox" name="vpn" id="vpn">
-          <label for="vpn">Vpn mode</label>
-          <input type="checkbox" name="reconnect" id="reconnect">
-          <label for="reconnect">Reconnect</label>
-
-          <div class="input-row">
-            <label for="number-input">Max retries on intial join:</label>
-            <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57"onchange="checkValue (this)" oninput="checkValue(this)"/>
-            <button class="increase-button">+</button>
-            <button class="decrease-button">-</button>
+          <div class="connecting-1">
+            <input type="checkbox" name="vpn" id="vpn">
+            <label for="vpn">Vpn mode</label>
           </div>
-          <div class="input-row">
-            <label for="number-input">Max rejoin on disconnect:</label>
-            <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57"onchange="checkValue (this)" oninput="checkValue(this)"/>
-            <button class="increase-button">+</button>
-            <button class="decrease-button">-</button>
+          
+          <div class="connecting-2">
+            <input type="checkbox" name="reconnect" id="reconnect">          
+            <label for="reconnect">Reconnect</label>
+            <div class="connecting-2_1">
+              <label for="reconnect-delay-input">Delay:</label>
+              <div class="connecting-2_1-box">
+                <input type="number" id="reconnect-delay-input" placeholder="5" min="0"/>
+                <button class="increase-reconnect-delay-input">+</button>
+                <button class="decrease-reconnect-delay-input">-</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="connecting-3">
+            <label for="max-retries-on-intial-join-input">Max retries on intial join:</label>
+            <input type="number" id="max-retries-on-intial-join-input" placeholder="5" min="0"/>
+            <button class="increase-max-retries-on-intial-join-input">+</button>
+            <button class="decrease-max-retries-on-intial-join-input">-</button>
+          </div>
+          <div class="connecting-4">
+            <label for="max-rejoin-on-disconnect-input">Max rejoin on disconnect:</label>
+            <input type="number" id="max-rejoin-on-disconnect-input" placeholder="5" min="0"/>
+            <button class="increase-max-rejoin-on-disconnect-input">+</button>
+            <button class="decrease-max-rejoin-on-disconnect-input">-</button>
           </div>
         </div>
         <div class="in-game">
         <h3>In-game</h3>
-          <input type="checkbox" name="use-sprint" id="use-sprint">
-          <label for="use-sprint">Use sprint</label>
-          <div class="input-row">
-            <label for="number-input">Max fall:</label>
-            <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57"onchange="checkValue (this)" oninput="checkValue(this)"/>
-            <button class="increase-button">+</button>
-            <button class="decrease-button">-</button>
+          <div class="use-sprint">
+            <input type="checkbox" name="use-sprint" id="use-sprint">
+            <label for="use-sprint">Use sprint</label>
+          </div>
+          <div class="max-fall">
+            <label for="max-fall-input" title="Max drop down for pathfinding">Max fall:</label>
+            <div class="max-fall-bottom">
+              <input type="number" id="max-fall-input" placeholder="5" min="0">
+              <button class="increase-max-fall-input">+</button>
+              <button class="decrease-max-fall-input">-</button>
+            </div>
           </div>
         </div>
         <div class="plugins">
         <h3>Plugins</h3>
-          <input type="checkbox" name="all-permissions" id="all-permissions">
-          <label for="all-permissions">All permissions</label>
+          <div class="plugins-checkbox">
+            <input type="checkbox" name="all-permissions" id="all-permissions">
+            <label for="all-permissions">All permissions</label>
+          </div>
         </div>
       
         <div class="proxies">
       <h3>Proxies</h3>
         <input type="checkbox" name="use-proxies" id="use-proxies">
         <label for="use-proxies">Use proxies</label>
-        <div class="input-row">
-          <label for="number-input">Max proxy retries:</label>
-          <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValu(this)" oninput="checkValue(this)"/>
-          <button class="increase-button">+</button>
-          <button class="decrease-button">-</button>
+        <div class="max-proxy-retries-input-row">
+          <label for="max-proxy-retries-input">Max proxy retries:</label>
+          <div class="max-proxy-retries-bottom">
+            <input type="number" id="max-proxy-retries-input" placeholder="5" min="0"/>
+            <button class="increase-max-proxy-retries-input">+</button>
+            <button class="decrease-max-proxy-retries-input">-</button>
+          </div>
         </div>
-        <div class="input-row">
-          <label for="number-input">Max same proxy:</label>
-          <input type="text" class="number-input" value="5" onkeypress="return event.charCode >= 48 && event.charCode <= 57" onchange="checkValu(this)" oninput="checkValue(this)"/>
-          <button class="increase-button">+</button>
-          <button class="decrease-button">-</button>
+        <div class="max-same-proxy-input-row">
+          <label for="max-same-retries-input">Max same proxy:</label>
+            <div class="max-same-proxy-bottom">
+            <input type="number" id="max-same-proxy-input" placeholder="5" min="0"/>
+            <button class="increase-max-same-proxy-input">+</button>
+            <button class="decrease-max-same-proxy-input">-</button>
+          </div>
         </div>
-        <div class="input-row">
-          <label for="number-input">Login threads:</label>
-          <input type="text" class="number-input" value="99" onkeypress="return event.charCode >= 48 && event.charCode <= 57"onchange="checkValue(this)" oninput="checkValue(this)"/>
-          <button class="increase-button">+</button>
-          <button class="decrease-button">-</button>
+        <div class="login-threads-input-row">
+          <label for="login-threads-input">Login threads:</label>
+          <div class="login-threads-bottom">
+            <input type="number" id="login-threads-input" placeholder="99" min="0"/>
+            <button class="increase-login-threads-input">+</button>
+            <button class="decrease-login-threads-input">-</button>
+          </div>
         </div>
-        <label for="proxy-list">Proxy list:</label>
-        <input type="file" name="proxy-list" id="proxy-list">
 
-        <label for="proxy-type">Proxy type</label>
-        <select name="proxy-type" id="proxy-type">
-          <option value="sock4">Sock4</option>
-          <option value="sock5">Sock5</option>
-        </select>
+        <div>Proxy list path:</div>
+        <div class="proxy-list">
+          <input type="file" name="proxy-list-path" id="proxy-list-path" accept=".txt">
+          <p id="file-path">No file choose</p>
+          <label for="proxy-list-path">Set</label>
         </div>
+        <div class="proxy-type">
+          <select name="proxy-type-select" id="proxy-type-select">
+            <option value="sock4">Sock4</option>
+            <option value="sock5">Sock5</option>
+          </select>
+        </div>
+      </div>
 
       <h2 class="top-right-h2">Advanced settings</h2>
         <div class="loading">
@@ -269,34 +316,263 @@
   </section>
 
   <section id="botting" class="page-section">
-    <!-- <div style="width: 200px; height: 100px; border: 1px solid #ccc;"> Nội dung box nhỏ </div> -->
-    <span>Bots list</span>
-      <ul id="botlist" class="flex-colum" style="height: 11pc; width:15pc; margin-top: 0;"></ul>
-      <div style="display: flex; position: relative; top: -12px; width:15pc;">
-        <label class="container">
-          <input id="toggleautoselect" type="checkbox" checked>
-          <span class="checkmark"></span>
-        </label>
-        <button style="flex: 1;" class="button" onclick="selectAll()">All</button>
-        <button style="flex: 1;" class="button" onclick="selectRemove()">None</button>
-      </div>
-      <ul id="ul-options" class="flex-colum input-group selectors" style="height: 14pc; width:15pc; position: relative; top: -20px; opacity: 1;">
-        <button class="button button-selected" data-target=".controls">Controls</button>
-        <button class="button" data-target=".chat">Chat</button>
-        <button class="button" data-target=".spam">Spam</button>
-        <button class="button" data-target=".setHotbatSlot">Set hotbar slot</button>
-        <button class="button" data-target=".clickWindow">Click window</button>
-        <button class="button" data-target=".moveDirection">Control move</button>
-        <button class="button" data-target=".look">Look</button>
-        <button class="button" data-target=".drop">Drop</button>
-        <button class="button" data-target=".antiafk">Anti-AFK</button>
-        <button class="button" data-target=".killaura">Killaura</button>
-      </ul>
-  </section>
+    <div class="botting-ui">
+      <div class="botselect">
+        <span>Bot list</span>
+        <div id="botlist">
 
-  <section id="plugins" class="page-section">
-    <div>
-      
+        </div>
+        <div class="select-button">
+          <button id="selectedall">All</button>
+          <input type="checkbox" name="auto-select-all" id="auto-select-all">
+          <button id="deselectedall">None</button>
+        </div>
+      </div>
+      <div class="botcontrol">
+        <ul>
+          <li><button class="control-button control-button-select" onclick="showcontrol('message-control')">Chat</button></li>
+          <li><button class="control-button" onclick="showcontrol('spam-control')">Spam</button></li>
+          <li><button class="control-button" onclick="showcontrol('respawn-control')">Respawn</button></li>
+          <li><button class="control-button" onclick="showcontrol('disconnect-control')">Disconnect</button></li>
+          <li><button class="control-button" onclick="showcontrol('drop-control')">Drop</button></li>
+          <li><button class="control-button" onclick="showcontrol('pathfinding-control')">Pathfinding</button></li>
+          <li><button class="control-button" onclick="showcontrol('looks-control')">Looks</button></li>
+          <li><button class="control-button" onclick="showcontrol('move-control')">Move</button></li>
+          <li><button class="control-button" onclick="showcontrol('')">Click window</button></li>
+          <li><button class="control-button" onclick="showcontrol('')">Anti-AFK</button></li>
+          <li><button class="control-button" onclick="showcontrol('')">Killaura</button></li>
+        </ul>
+      </div>
+      <div class="control">
+        <div class="control-settings">
+
+          <section id="message-control" class="control-page-select">
+            <label for="message-input">Message:</label>
+            <input type="text" name="message-input" id="message-input">
+          </section>
+
+          <section id="spam-control" class="control-page-select">
+            <div>
+              <label for="spam-input">Message:</label>
+              <input type="text" name="spam-input" id="spam-input">
+            </div>
+            <div class="spam-delay-input-row">
+              <label for="spam-delay-input">Spam delay:</label>
+              <div class="spam-delay-bottom">
+                <input type="number" id="spam-delay-input" placeholder="500" min="0"/>
+                <button class="increase-spam-delay-input">+</button>
+                <button class="decrease-spam-delay-input">-</button>
+              </div>
+            </div>
+            <div class="anti-spam">
+              <input type="checkbox" name="use-anti-spam" id="use-anti-spam">
+              <label for="use-anti-spam">Use anti spam</label>
+            </div>
+            <div class="anti-spam-option">
+              <label for="anti-spam-type">Anti spam type:</label>
+              <select name="anti-spam-type" id="anti-spam-type">
+                <option value="as-all">All</option>
+                <option value="as-number">Number</option>
+                <option value="as-letter">Letter</option>
+                <option value="as-uppercase">Uppercase</option>
+                <option value="as-lowercase">Lowercase</option>
+                <option value="as-custom">Custom</option>
+              </select>
+              <input type="text" name="anti-spam-chars" id="anti-spam-chars" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+" readonly>
+            </div>
+            <div class="anti-spam-length-input-row">
+              <label for="anti-spam-length-input">Anti spam length:</label>
+              <div class="spam-delay-bottom">
+                <input type="number" id="anti-spam-length-input" placeholder="500" min="1"/>
+                <button class="increase-anti-spam-length-input">+</button>
+                <button class="decrease-anti-spam-length-input">-</button>
+              </div>
+            </div>
+            <div class="spam-time-input-row">
+              <label for="spam-time-input">Spam time:</label>
+              <div class="spam-delay-bottom">
+                <input type="number" id="spam-time-input" placeholder="500" min="1"/>
+                <button class="increase-spam-time-input">+</button>
+                <button class="decrease-spam-time-input">-</button>
+              </div>
+            </div>
+          </section>
+
+          <section id="respawn-control" class="control-page-select">
+            <input type="checkbox" name="auto-respawn" id="auto-respawn">
+            <label for="auto-respawn">Auto respawn</label>
+            <button>Respawn</button>
+          </section>
+
+          <section id="disconnect-control" class="control-page-select">
+            <p>HELLO</p>
+          </section>
+
+          <section id="drop-control" class="control-page-select">
+            <div>
+              <label for="item-id-drop">Item id</label>
+              <input type="text" name="item-id-drop" id="item-id-drop">
+            </div>
+            <div class="drop-delay-input-row">
+              <label for="drop-delay-input">Drop delay:</label>
+              <div class="drop-delay-bottom">
+                <input type="number" id="drop-delay-input" placeholder="500" min="0"/>
+                <button class="increase-drop-delay-input">+</button>
+                <button class="decrease-drop-delay-input">-</button>
+              </div>
+            </div>
+            <div>
+              <input type="checkbox" name="drop-full-stack" id="drop-full-stack">
+              <label for="drop-full-stack">Drop full stack</label>
+            </div>
+          </section>
+
+          <section id="pathfinding-control" class="control-page-select">
+            <div class="path-x">
+              <label for="path-x-input">X:</label>
+              <div class="path-x-bottom">
+                <input type="number" id="path-x-input" placeholder="0"/>
+                <button class="increase-path-x-input">+</button>
+                <button class="decrease-path-x-input">-</button>
+              </div>
+            </div>
+            <div class="path-y">
+              <label for="path-y-input">Y:</label>
+              <div class="path-y-bottom">
+                <input type="number" id="path-y-input" placeholder="0"/>
+                <button class="increase-path-y-input">+</button>
+                <button class="decrease-path-y-input">-</button>
+              </div>
+            </div>
+            <div class="path-z">
+              <label for="path-z-input">Z:</label>
+              <div class="path-z-bottom">
+                <input type="number" id="path-z-input" placeholder="0"/>
+                <button class="increase-path-z-input">+</button>
+                <button class="decrease-path-z-input">-</button>
+              </div>
+            </div>
+          </section>
+
+          <section id="looks-control" class="control-page-select">
+            <div>
+              <input type="radio" name="look-type" id="look-cardinal-directions">
+              <label for="look-cardinal-directions">Cardinal directions</label>
+              <input type="radio" name="look-type" id="look-directions">
+              <label for="look-directions">Directions</label>
+              <input type="radio" name="look-type" id="look-postion">
+              <label for="look-postion">Postion</label>
+            </div>
+            <div>
+              <label for="looks-option">Look: </label>
+              <select name="looks-option" id="looks-option">
+                <option value="look-north">North</option>
+                <option value="look-south">South</option>
+                <option value="look-east">East</option>
+                <option value="look-west">West</option>
+              </select>
+            </div>
+            <div>
+              <div class="yaw">
+                <label for="yaw-input">Yaw:</label>
+                <div class="yaw-bottom">
+                  <input type="number" id="yaw-input" placeholder="0"/>
+                  <button class="increase-yaw-input">+</button>
+                  <button class="decrease-yaw-input">-</button>
+                </div>
+              </div>
+              <div class="pitch">
+                <label for="pitch-input">Pitch:</label>
+                <div class="pitch-bottom">
+                  <input type="number" id="pitch-input" placeholder="0"/>
+                  <button class="increase-pitch-input">+</button>
+                  <button class="decrease-pitch-input">-</button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="look-x">
+                <label for="look-x-input">X:</label>
+                <div class="look-x-bottom">
+                  <input type="number" id="look-x-input" placeholder="0"/>
+                  <button class="increase-look-x-input">+</button>
+                  <button class="decrease-look-x-input">-</button>
+                </div>
+              </div>
+              <div class="look-y">
+                <label for="look-y-input">Y:</label>
+                <div class="look-y-bottom">
+                  <input type="number" id="look-y-input" placeholder="0"/>
+                  <button class="increase-look-y-input">+</button>
+                  <button class="decrease-look-y-input">-</button>
+                </div>
+              </div>
+              <div class="look-z">
+                <label for="look-z-input">Z:</label>
+                <div class="look-z-bottom">
+                  <input type="number" id="look-z-input" placeholder="0"/>
+                  <button class="increase-look-z-input">+</button>
+                  <button class="decrease-look-z-input">-</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="move-control" class="control-page-select">
+            <select id="move-value" class="select">
+              <option value="forward">Forward</option>
+              <option value="back">Backwards</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+              <option value="jump">Jump</option>
+              <option value="sneak">Sneak</option>
+              <option value="none">None</option>
+            </select>
+          </section>
+
+        </div>
+      </div>
+
+      <div class="control-toggle">
+        <div class="toggle-command">
+          <button id="start-command">Start command</button>
+          <button id="stop-command">Stop command</button>
+        </div>
+        <div class="control-repeat">
+          <div class="command-repeat-input-row">
+            <label for="command-repeat-input">Repeat:</label>
+            <div class="command-repeat-bottom">
+              <input type="number" id="command-repeat-input" placeholder="1" min="0"/>
+              <button class="increase-command-repeat-input">+</button>
+              <button class="decrease-command-repeat-input">-</button>
+            </div>
+          </div>
+          <div class="command-repeat-delay-input-row">
+            <label for="command-repeat-delay-input">Repeat delay:</label>
+            <div class="command-repeat-delay-bottom">
+              <input type="number" id="command-repeat-delay-input" placeholder="5000" min="0"/>
+              <button class="increase-command-repeat-delay-input">+</button>
+              <button class="decrease-command-repeat-delay-input">-</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="botsconsole">
+        <div class="console" id="botconsole"></div>
+      </div>
+
+      <div class="console-button">
+        <button id="console-clear">Clear</button>
+        <button id="console-clear-select">Clear selected</button>
+      </div>
+
+    </section>
+
+    <section id="plugins" class="page-section">
+      <div>
+
+      </div>
     </div>
   </section>
 
@@ -329,16 +605,7 @@
       </li>
     </ul>
   </section>
-  <!-- Trong tệp index.html -->
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const config = JSON.parse(params.get('config')) || {};
-
-//  if (config.windowBounds) {
-//    const { x, y, width, height } = config.windowBounds;
-//    window.moveTo(x, y);
-//    window.resizeTo(width, height);
-//  }
-</script>
+  <script src="html.js"></script>
+  <script src="../bot/botmain.js"></script>
 </body>
 </html>

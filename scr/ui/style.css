@@ -53,6 +53,12 @@ h2 {
   margin-top: 0px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .navbar {
   background-color: black;
 }
@@ -94,13 +100,12 @@ h2 {
   cursor: pointer;
   font-size: 16px;
   padding: 10px 10px;
-  width: 100px;
+  width: 105px;
   text-align: start;
 }
 
-
 .navbar button:hover {
-  border-bottom: 4px solid rgb(80, 80, 80);
+  border-bottom: 4px solid rgb(132, 86, 0);
 }
 
 section.page-section {
@@ -176,6 +181,12 @@ section.page-section.active {
   align-items: center;
 }
 
+#general .general-grid .general-2 .account-input2 {
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
 #general .general-grid .general-2 .account-input p {
   margin: 0;
   margin-right: 5px;
@@ -189,10 +200,16 @@ section.page-section.active {
 #general .general-grid .general-2 .account-input span.account-path {
   border-bottom: 2px solid orange;
   margin-right: 10px;
-  width: 600px;
+  width: 620px;
   height: 30px;
-  padding: 5px;
   color: #B9B9B7;
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: clip;
+}
+
+#general .general-grid .general-2 .account-input span.account-path::-webkit-scrollbar {
+  display: none;
 }
 
 #general .general-grid .general-2 .account-input label {
@@ -210,9 +227,23 @@ section.page-section.active {
   cursor: pointer;
 }
 
-#general .general-grid .general-2 .radio-container {
+#general .general-grid .general-2 .account-input2 #bot-username {
+  border: none;
+  outline: none;
+  border-bottom: 2px solid orange;
+  background: none;
+}
+
+#general .general-grid .general-2 .account-input2 .crack-type {
   margin-top: 10px;
-  margin-left: 100px;
+  margin-left: 20px;
+}
+
+#general .general-grid .general-2 .account-input2 .random-length {
+  margin-top: 10px;
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -268,7 +299,8 @@ section.page-section.active {
 }
 
 #general .general-3 .labels label {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 #general .general-3 .input-container .number-input {
@@ -293,12 +325,12 @@ section.page-section.active {
   margin-left: 5px;
   background-color: transparent;
   border: none;
+  color: #C3C4C7;
+  font-size: 20px;
 }
 
-#general input::-webkit-outer-spin-button,
-#general input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+#general .general-3 .buttons button:hover {
+ color: black;
 }
 
 #general .general-grid .general-4 {
@@ -326,12 +358,29 @@ section.page-section.active {
   overflow-y: auto;
 }
 
-#general .general-grid .general-5 #connect-message-container .inputtext {
+#general .general-grid .general-5 #connect-message-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+#general .general-grid .general-5 #connect-message-container::-webkit-scrollbar-track {
+  background: rgb(216, 216, 216);
+}
+
+#general .general-grid .general-5 #connect-message-container::-webkit-scrollbar-thumb {
+  background: orange;
+}
+
+#general .general-grid .general-5 #connect-message-container::-webkit-scrollbar-thumb:hover {
+  background: rgb(175, 114, 0);
+}
+
+#general .general-grid .general-5 #connect-message-container .connect-msg-input {
   border: none;
   outline: none;
   font-size: 20px;
   border-bottom: 2px solid orange;
   padding-bottom: -10px;
+  margin-right: 5px;
   background: none;
 }
 
@@ -406,6 +455,7 @@ section.page-section.active {
   background: none;
   border: none;
   margin-top: 15px;
+  width: 150px;
 }
 
 #general .general-6 .toggle-button #stop-button {
@@ -422,6 +472,7 @@ section.page-section.active {
   background: none;
   border: none;
   margin-top: 15px;
+  width: 150px
 }
 
 #general .general-6 .toggle-button #start-button:hover {
@@ -572,8 +623,9 @@ section.page-section.active {
   font-family: Arial, sans-serif;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 50px 75px repeat(2, 1fr) 90px;
+  grid-template-rows: 65px 65px repeat(2, 65px) 100px;
   font-size: 15px;
+  grid-gap: 15px;
 }
 
 #settings .settings-grid .top-left-h2 {
@@ -582,6 +634,7 @@ section.page-section.active {
   flex-direction: column;
   align-items: flex-start;
   color: orange;
+  font-size: 30px;
 }
 
 #settings .top-right-h2 {
@@ -590,6 +643,7 @@ section.page-section.active {
   flex-direction: column;
   align-items: flex-end;
   color: orange;
+  font-size: 30px;
 }
 
 #settings h3 {
@@ -597,38 +651,545 @@ section.page-section.active {
   color: orange;
   background-color: #F6F4F2;
   padding: 0px 5px;
-  border: 1px solid red;
+  margin-left: 10px;
   width: fit-content;
 }
 
-#settings .plugins {
+#settings .plugins,
+#settings .proxies,
+#settings .connecting,
+#settings .in-game,
+#settings .loading {
   border: 1px solid #E2DFE1;
-  grid-area: 2 / 2 / 3 / 3;
-}
-
-#settings .proxies {
-  border: 1px solid #E2DFE1;
-  grid-area: 3 / 2 / 6 / 3;
+  border-radius: 3px;
+  padding-left: 10px;
 }
 
 #settings .connecting {
-  border: 1px solid #E2DFE1;
   grid-area: 2 / 1 / 5 / 2;
+  display: block;
+}
+
+#settings .connecting .connecting-2 {
+  display: inline-flex;
+  height: 25px;
+}
+
+#settings .connecting .connecting-2 label{
+  margin-top: 2px;
+}
+
+
+#settings .connecting .connecting-2 .connecting-2_1  {
+  margin-left: 10px;
+  display: inline-flex;
+}
+
+#settings .connecting .connecting-2 .connecting-2_1 .connecting-2_1-box {
+  border-bottom: 2px solid orange;
+}
+
+#settings .connecting .connecting-2_1 input {
+  width:50px;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+#settings .connecting .connecting-2_1 button {
+  background: none;
+  outline: none;
+  border: none;
+  color: #C3C2C4;
+  font-size: 20px;
+}
+
+#settings .connecting .connecting-2_1 button:hover {
+  color: black;
+}
+
+#settings .connecting .connecting-3,
+#settings .connecting .connecting-4 {
+  border-bottom: 2px solid orange;
+  margin-right: 40px;
+  margin-top: 10px;
+}
+
+#settings .connecting .connecting-3 button,
+#settings .connecting .connecting-4 button {
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  color: #C4C5C8;
+}
+
+#settings .connecting .connecting-3 button:hover,
+#settings .connecting .connecting-4 button:hover {
+  color: black;
+}
+
+#settings .connecting .connecting-3 input,
+#settings .connecting .connecting-4 input {
+  background: none;
+  border: none;
+  outline: none;
 }
 
 #settings .in-game {
-  border: 1px solid #E2DFE1;
   grid-area: 5 / 1 / 6 / 2;
+  margin-top: 0px;
+}
+
+#settings .in-game .max-fall {
+  margin-top: 10px;
+}
+
+#settings .in-game .max-fall .max-fall-bottom {
+  border-bottom: 2px solid orange;
+  width: auto;
+  display: inline-flex
+}
+
+#settings .in-game .max-fall .max-fall-bottom button {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 20px;
+  color: #C3C2C4;
+}
+
+#settings .in-game .max-fall .max-fall-bottom button:hover {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 20px;
+  color: black;
+}
+
+#settings .in-game .max-fall input {
+  border: none;
+  outline: none;
+  width: 125px;
+  background: none;
+}
+
+#settings .plugins {
+  grid-area: 2 / 2 / 3 / 3;
+}
+
+#settings .plugins .plugins-checkbox {
+  margin-top: -8px;
+}
+
+#settings .proxies {
+  grid-area: 3 / 2 / 6 / 3;
+}
+
+#settings .proxies .max-proxy-retries-input-row,
+#settings .proxies .max-same-proxy-input-row,
+#settings .proxies .login-threads-input-row {
+  display: flex;
+  align-items: center;
+}
+
+#settings .proxies .max-proxy-retries-input-row .max-proxy-retries-bottom,
+#settings .proxies .max-same-proxy-input-row .max-same-proxy-bottom,
+#settings .proxies .login-threads-input-row .login-threads-bottom {
+  border-bottom: 2px solid orange;
+  margin-left: -25px;
+}
+
+#settings .proxies .max-proxy-retries-bottom input,
+#settings .proxies .max-same-proxy-bottom input,
+#settings .proxies .login-threads-bottom input {
+  width: 70px;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#settings .proxies .max-proxy-retries-input-row button,
+#settings .proxies .max-same-proxy-input-row button,
+#settings .proxies .login-threads-input-row button {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 20px;
+  color: #C3C2C4;
+}
+
+#settings .proxies .max-proxy-retries-input-row button:hover,
+#settings .proxies .max-same-proxy-input-row button:hover,
+#settings .proxies .login-threads-input-row button:hover {
+  color: black;
+}
+
+#settings .proxies label {
+  display: inline-block;
+  width: 150px;
+}
+
+#settings .proxies .proxy-list input[type="file"] {
+  display: none;
+}
+
+#settings .proxies .proxy-list {
+  display: inline-flex;
+  width: 250px;
+  margin-top: -10px;
+}
+
+#settings .proxies .proxy-list #file-path {
+  color: #B9B9B7;
+  white-space: nowrap;
+  overflow: auto;
+  text-overflow: clip;
+  width: 200px;
+  padding: 0;
+  border-bottom: 2px solid orange;
+  margin-right: 5px;
+}
+
+#settings .proxies .proxy-list #file-path::-webkit-scrollbar {
+  display: none;
+}
+
+#settings .proxies .proxy-list label {
+  border: 2px solid gray;
+  background-color: lightgray;
+  padding: 2px 20px;
+  width: 20px;
+  height: 25px;
+  margin-top: 10px;
+}
+
+#settings .proxies .proxy-list label:hover {
+  border: 2px solid darkgray;
+  background-color: gray;
+}
+
+#settings #proxy-type-select {
+  width: 96%;
+  height: 40px;
+  font-size: 20px;
+}
+
+#settings #proxy-type-select option {
+  font-size: 20px;
 }
 
 #settings .loading {
-  border: 1px solid #E2DFE1;
   grid-area: 2 / 3 / 6 / 4;
+}
+
+/* botting.css */
+#botting .botting-ui {
+  display: grid;
+  grid-template-columns: 3fr 7fr 3fr;
+  grid-template-rows: 5fr repeat(3, 1fr);
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  height: 425px;
+}
+
+#botting .botselect {
+  grid-area: 1 / 1 / 2 / 2;
+}
+
+#botting .botselect #botlist {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  width: 200px;
+  height: 175px;
+  border: 3px solid #ccc;
+}
+
+#botting .botselect #botlist .bot-item {
+  color: gray;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#botting .botselect #botlist .bot-item:hover {
+  background-color: #d5d5d5;
+  transform: scale(1.02);
+}
+
+#botting .botselect #botlist .bot-selected {
+  background-color: orange;
+  color: gray;
+}
+
+#botting .botselect #botlist .bot-selected:hover {
+  background-color: orange;
+}
+
+#botting .botcontrol {
+  grid-area: 2 / 1 / 5 / 2;
+  height: 175px;
+  overflow-y: auto;
+  width: 200px; 
+  border: 1px solid #ccc;
+}
+
+#botting .botcontrol ul {
+  margin: 0;
+  padding: 0;
+}
+
+#botting .botcontrol li {
+  margin-right: 0px;
+  overflow-x: hidden;
+}
+
+#botting .botcontrol button.control-button-select {
+  outline: 1px solid rgb(255, 149, 0);
+  background-color: rgba(255, 191, 0, 0.451);
+}
+
+#botting .botcontrol button.control-button-select:hover {
+  outline: 1px solid rgb(255, 149, 0);
+  background-color: rgba(255, 191, 0, 0.762);
+}
+
+#botting .botcontrol button {
+  display: block;
+  width: 100%;
+  margin: 1px;
+  padding: 5px;
+  color: #505352;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: start;
+}
+
+#botting .botcontrol button:hover {
+  outline: 1px solid rgba(255, 149, 0, 0.651);
+  background-color: rgba(255, 191, 0, 0.238);
+}
+
+#botting .botcontrol section.control-page-select {
+  grid-area: 1 / 2 / 4 / 3;
+  height: 420px;
+  background-color: #F6F4F2;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 0 10px 10px;
+}
+
+#botting .botcontrol section.control-page-select {
+  display: none;
+}
+#botting .botcontrol section.control-page-select.active {
+  display: block;
+}
+
+#botting .botcontrol::-webkit-scrollbar {
+  width: 5px;
+}
+
+#botting .botcontrol::-webkit-scrollbar-track {
+  background: orange;
+}
+
+#botting .botcontrol::-webkit-scrollbar-thumb {
+  background: rgb(200, 130, 0);
+}
+
+#botting .botcontrol::-webkit-scrollbar-thumb:hover {
+  background: rgb(154, 100, 0)
+}
+
+#botting .control {
+  grid-area: 1 / 2 / 3 / 3;
+  margin-bottom: 25px;
+}
+
+#botting .control .control-settings {
+  border: 3px solid rgba(255, 0, 0, 0.225);
+}
+
+#botting .control .control-settings #message-control #message-input {
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 2px solid orange;
+  width: 90%;
+}
+
+#botting .control .control-settings #spam-control #spam-input {
+  border: none;
+  outline: none;
+  background: none;
+  border-bottom: 2px solid orange;
+  width: 90%;
+}
+
+#botting .control .control-settings #spam-control .spam-delay-input-row,
+#botting .control .control-settings #spam-control .anti-spam-length-input-row,
+#botting .control .control-settings #spam-control .spam-time-input-row {
+  border-bottom: 2px solid orange;
+  width: 50%;
+}
+
+#botting .control .control-settings #spam-control .spam-delay-input-row #spam-delay-input,
+#botting .control .control-settings #spam-control .anti-spam-length-input-row #anti-spam-length-input,
+#botting .control .control-settings #spam-control .spam-time-input-row #spam-time-input {
+  border: none;
+  outline: none;
+  background: none;
+  width: 160px;
+}
+
+#botting .control .control-settings #spam-control .spam-delay-input-row button,
+#botting .control .control-settings #spam-control .anti-spam-length-input-row button,
+#botting .control .control-settings #spam-control .spam-time-input-row button {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 20px;
+  color: lightgray;
+}
+
+#botting .control .control-settings #spam-control .spam-delay-input-row button:hover,
+#botting .control .control-settings #spam-control .anti-spam-length-input-row button:hover,
+#botting .control .control-settings #spam-control .spam-time-input-row button:hover {
+  color: black;
+}
+
+#botting .control .control-settings #spam-control .anti-spam {
+  display: block;
+}
+
+#botting .control-toggle {
+  grid-area: 4 / 2 / 5 / 3;
+  display: flex;
+}
+
+#botting .control-toggle .toggle-command {
+  display: block;
+  width: 35%;
+}
+
+#botting .control-toggle .toggle-command button {
+  width: 90%;
+  height: 45%;
+  margin-left: 5px;
+  margin-top: 2px;
+}
+
+#botting .control-toggle .control-repeat {
+  width: 65px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#botting .control-toggle .control-repeat .command-repeat-input-row,
+#botting .control-toggle .control-repeat .command-repeat-delay-input-row {
+  display: flex;
+  align-items: center;
+}
+
+#botting .control-toggle .control-repeat label {
+  width: 100px;
+  text-align: left;
+  margin-right: 5px;
+}
+
+#botting .control-toggle .control-repeat .command-repeat-bottom,
+#botting .control-toggle .control-repeat .command-repeat-delay-bottom {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid orange;
+}
+
+#botting .control-toggle .control-repeat input {
+  width: 100px;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+#botting .control-toggle .control-repeat button {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 20px;
+  color: #C3C2C4;
+  margin-left: 5px;
+}
+
+#botting .control-toggle .control-repeat button:hover {
+  color: black;
+}
+
+#botting .botsconsole {
+  grid-area: 1 / 3 / 4 / 4;
+  margin-top: 5px;
+  width: 185px; 
+}
+
+#botting .botsconsole .console {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border: 2px solid gray;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* do */
+
+#botting .botsconsole .console .log-button {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  background-color: white;
+  text-align: left;
+  word-wrap: break-word;
+}
+
+#botting .botsconsole .console .log-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.02);
+}
+
+#botting .botsconsole .console .log-button.selected {
+  background-color: rgba(255, 166, 0, 0.868);
+  color: white;
+}
+
+#botting .console-button {
+  grid-area: 4 / 3 / 5 / 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#botting .console-button button {
+  padding: 5px 10px;
+  width: max-content;
+  margin: 5px;
 }
 
 
 /* about.css */
-
 #about ul.contact {
   position: relative;
   display: flex;
