@@ -79,7 +79,14 @@ async function createBots(botcount, serverip, botusername, bversion) {
             addbot(bot.username)
             document.getElementById('bot-connected').textContent = botcount()
 
-
+            if (document.getElementById('connect-message').checked) {
+                const connectmsg = document.querySelectorAll('input.connect-msg-input')
+                connectmsg.forEach((input, index) => {
+                    setTimeout(() => {
+                        bot.chat(input.value);
+                    }, index * 500);
+                });
+            }
         });
 
         bot.on('end', () => {
