@@ -47,11 +47,11 @@ function addinput() {
 function removeinput() {
   var container = document.getElementById('connect-message-container');
   var inputs = container.getElementsByTagName('input');
-  if (inputs.length > 1) {
+  if (inputs.length > 2) {
     container.removeChild(inputs[inputs.length - 1]);
   }
 
-  if(count > 1) {
+  if(count > 2) {
     count--;
   }
 }
